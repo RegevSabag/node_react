@@ -14,7 +14,7 @@ const passport = require('passport');
 const { jwtStrategy } = require('./middleware/passport');
 const { handleError, convertToApiError } = require('./middleware/apiError');
 
-const mongoUri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}?retryWrites=true&w=majority`;
+const mongoUri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/?retryWrites=true&w=majority&appName=nodeReactDBCluster`;
 mongoose.connect(mongoUri)
 
 // PARSING

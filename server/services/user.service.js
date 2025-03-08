@@ -52,7 +52,7 @@ const updateUserEmail = async(req) =>{
         );
         if(!user){
             throw new ApiError(httpStatus.NOT_FOUND,'User not found')
-        }    
+        }
         return user;
     }catch(error){
         throw error;
@@ -60,7 +60,7 @@ const updateUserEmail = async(req) =>{
 }
 
 const validateToken = (token) => {
-    return jwt.verify(token,process.env.DB_SECRET)
+    return jwt.verify(token,process.env.JWT_SECRET)
 }
 
 
