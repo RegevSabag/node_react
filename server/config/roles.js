@@ -11,13 +11,21 @@ const allRights = {
 let grantsObject = {
     admin:{
        // test:allRights,
-        profile: allRights
+        profile: allRights,
+        categories: allRights,
+        articles: allRights
     },
     user:{
        // test:{ 'read:any':['*'] }
        profile:{
             'read:own':['*','!password','!_id'],
             'update:own':['*','!password','!_id'],
+       },
+       categories:{
+        'read:any':['*']
+       },
+       articles:{
+        'read:any':['*']
        }
     }
 }

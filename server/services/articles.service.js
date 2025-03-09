@@ -1,9 +1,47 @@
+const httpStatus = require('http-status');
+const { Category } = require('../models/category');
+const { Article } = require('../models/article');
+const { ApiError } = require('../middleware/apiError');
 
+const addArticle = async (body) => {
+    try {
 
-const someFunc = async()=>{
-    return true
+        const article = new Article({
+            ...body,
+            score: parseInt(body.score)
+        });
+        await article.save();
+        return article;
+
+    } catch (error) {
+        throw error;
+    }
+}
+
+const addCategory = async (body) => {
+    try {
+        // validation
+
+        const category = new Category({name: body.name});
+        await category.save();
+        return category;
+
+    } catch (error) {
+        throw error;
+    }
+}
+
+const findAllCategories = async () => {
+    try {
+        const categories = await Category.find({});
+        return categories;
+    } catch (error) {
+        throw error;
+    }
 }
 
 module.exports = {
-    someFunc
+    addCategory,
+    findAllCategories,
+    addArticle
 }
