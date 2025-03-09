@@ -18,6 +18,51 @@ const addArticle = async (body) => {
     }
 }
 
+const findArticleById = async (_id, user) => {
+    try {
+        const article = await Article.findById(_id).populate("category");
+        if(!article) {
+            throw new ApiError(httpStatus.NOT_FOUND, "Article is not found");
+        }
+        if(user.role === 'user'){
+            throw new ApiError(httpStatus.NOT_FOUND, "Sorry you are not allowed");
+        }
+        return article;
+    } catch (error) {
+        throw error;
+    }
+}
+
+const updatedById = async (_id, body) => {
+    try {
+        const article = await Article.findOneAndUpdate(
+            {_id},
+            {"$set": body},
+            {new: true}
+
+        )
+        if(!article){
+            throw new ApiError(httpStatus.NOT_FOUND, "Article not found");
+        }
+        return article;
+    } catch (error) {
+        throw error;
+    }
+}
+
+const findAndDeleteArticleById = async (_id) => {
+    try {
+        const article = await Article.findOneAndDelete(_id);
+        if(!article){
+            throw new ApiError(httpStatus.NOT_FOUND, "Article not found");
+        }
+        return article;
+
+    } catch (error) {
+        throw error;
+    }
+}
+
 const addCategory = async (body) => {
     try {
         // validation
@@ -43,5 +88,8 @@ const findAllCategories = async () => {
 module.exports = {
     addCategory,
     findAllCategories,
-    addArticle
+    addArticle,
+    findArticleById,
+    updatedById,
+    findAndDeleteArticleById
 }
